@@ -12,19 +12,24 @@ import { Post as post } from 'src/typeorm/entities/post';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { UsersInterceptor } from 'src/interceptors/users.interceptor';
 import { ConfigService } from '@nestjs/config';
+import { Roles } from 'src/decorators/role.decorator';
+import { Role } from 'src/enums/roles.enum';
+import { RolesGuard } from 'src/auth/role.guard';
 @Controller('users')
 export class UsersController {
     constructor(private usersService:UsersService, private configService:ConfigService){}
-@UseGuards(AuthGuard)
+
+
+@Roles(Role.Admin)
+@UseGuards(AuthGuard,RolesGuard)
 @UseInterceptors(UsersInterceptor)
 @Get()
 async getUsers(@Request()req):Promise<any[]>{
-    //console.log(req.user)
-   console.log(this.configService.get("host"))
+    console.log(req.user.role)
+  // console.log(this.configService.get("host"))
    return this.usersService.findUsers()
 
 }
-
 
 @Get()
 async findOne(@Query("username") username:string):Promise<User>{

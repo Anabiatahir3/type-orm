@@ -27,7 +27,7 @@ import { ConfigService } from '@nestjs/config/dist';
         password: process.env.password,
         database: process.env.database,
         entities: [User,Post,Profile],
-        synchronize: false
+        synchronize: true
       })
     }
   )

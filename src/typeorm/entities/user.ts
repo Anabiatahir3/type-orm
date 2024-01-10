@@ -2,6 +2,8 @@ import { Entity, PrimaryGeneratedColumn,Column, OneToOne,OneToMany, JoinColumn }
 import { Profile } from "./profile";
 import { Post } from "./post";
 import { Exclude } from "class-transformer";
+import { IsEnum } from "class-validator";
+import { Role } from "src/enums/roles.enum";
 @Entity({name:"users"})
 export class User{
     @PrimaryGeneratedColumn({type:"bigint"})
@@ -19,9 +21,17 @@ export class User{
 
     @Column({nullable:true})
     authStrategy:string
+
+    
+    @Column({type:'enum',enum:Role,default:Role.User})
+    role:Role
+
 @OneToOne(()=>Profile)
 @JoinColumn()
 profile:Profile;
+
+
+
 
 @OneToMany(()=>Post,(post)=>post.user)
 posts:Post[]

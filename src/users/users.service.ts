@@ -21,6 +21,7 @@ const users=await this.UserRepository.find({relations:['profile','posts']})
 //const result = users.map(({ password, ...rest }) => rest);
 return users;
     }
+ 
 
     createUser(userDetails:CreateUserParams){
 const newUser=this.UserRepository.create({
@@ -29,6 +30,8 @@ const newUser=this.UserRepository.create({
 
 return this.UserRepository.save(newUser)
     }
+
+   
     
     async updateUser(id:number,updateUserParams:UpdateUserParams){
         const existingUser=await this.UserRepository.findOneBy({id})
@@ -71,7 +74,7 @@ return await this.PostRepository.save(post)
 
 }
 
-//this method is used to get all the posts made by a sibgle user
+//this method is used to get all the posts made by a single user
 async getAllPosts(userId:number){
 return this.PostRepository.createQueryBuilder('post')
 // .leftJoinAndSelect('post.user',"user")
