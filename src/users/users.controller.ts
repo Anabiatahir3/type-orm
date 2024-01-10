@@ -20,10 +20,11 @@ export class UsersController {
     constructor(private usersService:UsersService, private configService:ConfigService){}
 
 
-@Roles(Role.Admin)
-@UseGuards(AuthGuard,RolesGuard)
+
 @UseInterceptors(UsersInterceptor)
 @Get()
+@Roles(Role.Admin)
+@UseGuards(AuthGuard,RolesGuard)
 async getUsers(@Request()req):Promise<any[]>{
     console.log(req.user.role)
   // console.log(this.configService.get("host"))

@@ -8,7 +8,7 @@ import { RolesGuard } from './role.guard';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService,RolesGuard],
+  providers: [AuthService],
   imports:[UsersModule,
     JwtModule.register({
       global: true,
